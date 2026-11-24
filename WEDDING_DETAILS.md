@@ -23,14 +23,14 @@ Last updated: 24 November 2026
 ## 3. Functions
 | Date | Function | Sub-venue | Time on invite | Status |
 |---|---|---|---|---|
-| Sat 13 Mar 2027 | **Haldi** | West Elizey Day | Afternoon | Final |
+| Sat 13 Mar 2027 | **Haldi** | West Elizey | Afternoon | Final |
 | Sat 13 Mar 2027 | **Sangeet** | Grand Elizey | Evening | Final |
-| Sun 14 Mar 2027 | **Varmala** | Elizey Varmala Fountain | Afternoon | Final |
-| Sun 14 Mar 2027 | **Pheras** (wedding ceremony) | Grand Garden Mandap | Afternoon | Final |
+| Sun 14 Mar 2027 | **Varmala** | Elizey Varmala Fountain | Morning | Final |
+| Sun 14 Mar 2027 | **Pheras** (wedding ceremony) | Grand Garden Mandap | Morning | Final |
 | Sun 14 Mar 2027 | **Reception** | Dream Elizey | Night | Final |
 
 Notes:
-- The 14th is a **day wedding**: the Varmala and the Pheras run from the afternoon into the evening, and the Reception follows at night.
+- The 14th is a **day wedding**: the Varmala and the Pheras are in the morning, and the Reception follows at night.
 - The Haldi has a **multicolour** theme, so guests are asked to wear bright colours.
 - The RSVP asks by day, not by function: Day 1 (Haldi & Sangeet) and Day 2 (Varmala, Pheras & Reception).
 - Not on the invite: hi-tea on 13 and 14 March (no venue listed), lunch on the 14th at Grand Elizey, and breakfast and checkout on 15 March.
