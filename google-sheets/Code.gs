@@ -24,6 +24,9 @@ function getSheet_() {
 }
 
 function writeHeader_(sheet) {
+  // Clear any old headers to the right (e.g. from an earlier version with more columns).
+  const extra = sheet.getMaxColumns() - HEADERS.length;
+  if (extra > 0) sheet.getRange(1, HEADERS.length + 1, 1, extra).clearContent();
   sheet.getRange(1, 1, 1, HEADERS.length).setValues([HEADERS]).setFontWeight('bold');
   sheet.setFrozenRows(1);
   sheet.getRange('C:C').setNumberFormat('@');  // keep mobile numbers as text
