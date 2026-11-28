@@ -36,6 +36,14 @@
     return /^[6-9]\d{9}$/.test(d) ? d : "";
   }
 
+  // Names: letters in any script (English, Hindi…), spaces and . ' - &
+  var NAME_OK = /^[\p{L}\p{M}][\p{L}\p{M} .'’&-]*$/u;
+  // Drop digits and symbols as they're typed, so only letters go in.
+  $("name").addEventListener("input", function () {
+    var el = $("name"), v = el.value, clean = v.replace(/[^\p{L}\p{M} .'’&-]/gu, "");
+    if (clean !== v) el.value = clean;
+  });
+
   function loadSaved() {
     try { return JSON.parse(localStorage.getItem(STORE_KEY) || "null"); } catch (e) { return null; }
   }
@@ -93,6 +101,7 @@
     var chosen = DAYS.filter(function (f) { return $("fn-" + f).checked; });
 
     if (!name) return showError("Please enter your name.", $("name"));
+    if (!NAME_OK.test(name)) return showError("Please use letters only in your name.", $("name"));
     if (!phone) return showError("Please enter a 10-digit mobile number starting with 6, 7, 8 or 9.", $("phone"));
     if (yes && chosen.length === 0) return showError("Please tick at least one day, or choose “Regretfully declines”.");
 
