@@ -49,11 +49,10 @@ These limit what times we can print:
   1. Name (required)
   2. Mobile number (required, 10-digit Indian mobile starting with 6, 7, 8 or 9; spaces, +91 or a leading 0 are accepted and removed). Stored as plain 10 digits and used to keep one reply per family. Overseas numbers are not accepted for now.
   3. Attending: "Joyfully accepts" or "Regretfully declines"
-  4. Number of guests, including themselves (1 to 30, only if attending)
-  5. Which days they'll attend: Day 1, 13 March (Haldi & Sangeet) and/or Day 2, 14 March (Varmala, Pheras & Reception) (only if attending)
-- **The Sheet records:** one row per mobile number, with last updated time, name, mobile, attending, guests, Day 1 and Day 2 guest counts, and how many times they replied.
+  4. Which days they'll attend: Day 1, 13 March (Haldi & Sangeet) and/or Day 2, 14 March (Varmala, Pheras & Reception) (only if attending)
+- **The Sheet records:** one row per mobile number, with last updated time, name, mobile, attending, Day 1 and Day 2 (Yes or No), and how many times they replied. The form doesn't ask how many people are coming (removed 28 Nov 2026).
 - **Duplicate replies:** a reply from a number that already replied replaces that row, so the latest answer wins. The guest's browser also remembers the reply and shows "You've already responded", with a "Change my answer" button.
-- The **Headcount** tab adds up the guests for each day, for the venue's plate counts. The venue charges 25% extra per plate once the guaranteed count is exceeded by more than 10%, so accurate numbers matter.
+- The **Headcount** tab counts the replies coming on each day. It counts families, not people, so plate counts need to be estimated from it. The venue charges 25% extra per plate once the guaranteed count is exceeded by more than 10%, so accurate numbers matter.
 
 ## 5. How the invite reaches guests
 - The invite is sent on **WhatsApp**, as an invite image followed by a message with the website link.

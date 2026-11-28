@@ -37,8 +37,8 @@ If you set the Sheet up with an earlier version of the script (mobile numbers ar
 4. Click **Deploy → Manage deployments**, click the pencil icon, set **Version** to **New version**, and click **Deploy**. The web app link stays the same, so the website doesn't need changing.
 
 ## Reading the results
-- **RSVPs** has one row per mobile number. If someone replies again from the same number, their row is replaced with the new answer, and **Times replied** goes up by one. The Day 1 and Day 2 columns hold the number of guests coming that day, or 0.
-- **Headcount** adds up each day, which gives you the plate counts to send to the venue.
+- **RSVPs** has one row per mobile number. If someone replies again from the same number, their row is replaced with the new answer, and **Times replied** goes up by one. The Day 1 and Day 2 columns say Yes or No.
+- **Headcount** counts the replies coming on each day, and how many declined.
 
 ## If you change the script later
 Use **Deploy → Manage deployments → Edit (pencil) → Version: New version → Deploy**. This keeps the same URL, so you don't need to change `config.js`.

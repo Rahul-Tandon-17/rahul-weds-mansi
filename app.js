@@ -45,7 +45,7 @@
   function summary(r) {
     if (r.attending !== "Yes") return r.name + ", you let us know you can't make it.";
     var days = r.days.map(function (d) { return d === "day1" ? "Day 1 (13 March)" : "Day 2 (14 March)"; }).join(" and ");
-    return r.name + ", we have you down for " + r.guests + (r.guests === 1 ? " guest" : " guests") + " on " + days + ".";
+    return r.name + ", we have you down for " + days + ".";
   }
   function show(panel) {
     [form, thanks, done].forEach(function (p) {
@@ -60,13 +60,11 @@
     $("phone").value = r.phone || "";
     $("att-yes").checked = r.attending === "Yes";
     $("att-no").checked = r.attending !== "Yes";
-    if (r.attending === "Yes") $("guests").value = r.guests;
     DAYS.forEach(function (d) { $("fn-" + d).checked = r.attending !== "Yes" || r.days.indexOf(d) > -1; });
     syncAttending();
   }
 
   function syncAttending() {
-    $("guests-field").classList.toggle("hidden", !attendingYes());
     $("fn-set").classList.toggle("hidden", !attendingYes());
   }
   form.addEventListener("change", syncAttending);
@@ -91,13 +89,11 @@
 
     var name = $("name").value.trim();
     var phone = cleanPhone($("phone").value);
-    var guests = parseInt($("guests").value, 10);
     var yes = attendingYes();
     var chosen = DAYS.filter(function (f) { return $("fn-" + f).checked; });
 
     if (!name) return showError("Please enter your name.", $("name"));
     if (!phone) return showError("Please enter a 10-digit mobile number starting with 6, 7, 8 or 9.", $("phone"));
-    if (yes && !(guests >= 1 && guests <= 30)) return showError("Please enter how many guests are coming, between 1 and 30.", $("guests"));
     if (yes && chosen.length === 0) return showError("Please tick at least one day, or choose “Regretfully declines”.");
 
     if (!W.rsvpEndpoint) {
@@ -108,8 +104,8 @@
     data.set("name", name);
     data.set("phone", phone);
     data.set("attending", yes ? "Yes" : "No");
-    data.set("guests", yes ? String(guests) : "0");
-    DAYS.forEach(function (f) { data.set(f, yes && chosen.indexOf(f) > -1 ? String(guests) : "0"); });
+    // 1 = coming that day, 0 = not. The Sheet shows these as Yes / No.
+    DAYS.forEach(function (f) { data.set(f, yes && chosen.indexOf(f) > -1 ? "1" : "0"); });
 
     var btn = $("submit-btn");
     btn.disabled = true; $("submit-label").textContent = "Sending…";
@@ -118,7 +114,7 @@
     // A completed request means the row was received.
     fetch(W.rsvpEndpoint, { method: "POST", mode: "no-cors", body: data })
       .then(function () {
-        var record = { name: name, phone: phone, attending: yes ? "Yes" : "No", guests: yes ? guests : 0, days: yes ? chosen : [] };
+        var record = { name: name, phone: phone, attending: yes ? "Yes" : "No", days: yes ? chosen : [] };
         save(record);
         var first = name.split(" ")[0];
         $("thanks-text").textContent = yes

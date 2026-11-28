@@ -9,11 +9,11 @@
 const SHEET_NAME = 'RSVPs';
 const DAYS = ['day1', 'day2'];
 const HEADERS = [
-  'Last updated', 'Name', 'Mobile', 'Attending', 'Guests',
+  'Last updated', 'Name', 'Mobile', 'Attending',
   'Day 1 (13 Mar)', 'Day 2 (14 Mar)', 'Times replied'
 ];
 const MOBILE_COL = 3;   // column C
-const REPLIES_COL = 8;  // column H
+const REPLIES_COL = 7;  // column G
 
 function getSheet_() {
   const ss = SpreadsheetApp.getActiveSpreadsheet();
@@ -35,9 +35,9 @@ function clean_(v, max) {
   return /^[=+\-@]/.test(v) ? "'" + v : v;
 }
 
-function toCount_(v) {
-  const n = parseInt(v, 10);
-  return isNaN(n) || n < 0 ? 0 : Math.min(n, 30);
+// "Yes" if the guest is coming that day, otherwise "No".
+function yesNo_(v) {
+  return v === 'Yes' || parseInt(v, 10) > 0 ? 'Yes' : 'No';
 }
 
 // Plain 10-digit Indian mobile, e.g. 9876543210. Removes spaces, a +91/91
@@ -60,13 +60,13 @@ function doPost(e) {
   lock.waitLock(10000);
   try {
     const sheet = getSheet_();
+    const attending = p.attending === 'No' ? 'No' : 'Yes';
     const values = [
       new Date(),
       clean_(p.name, 100),
       phone,
-      p.attending === 'No' ? 'No' : 'Yes',
-      toCount_(p.guests),
-      ...DAYS.map(d => toCount_(p[d]))
+      attending,
+      ...DAYS.map(d => attending === 'Yes' ? yesNo_(p[d]) : 'No')
     ];
 
     // Look for an earlier reply from the same number.
@@ -109,10 +109,10 @@ function setup() {
   let summary = ss.getSheetByName('Headcount');
   if (!summary) summary = ss.insertSheet('Headcount');
   summary.clear();
-  summary.getRange('A1:B1').setValues([['Day', 'Guests']]).setFontWeight('bold');
+  summary.getRange('A1:B1').setValues([['', 'Replies']]).setFontWeight('bold');
   summary.getRange('A2:B5').setFormulas([
-    ['="Day 1 · 13 Mar (Haldi & Sangeet)"', '=SUM(RSVPs!F2:F)'],
-    ['="Day 2 · 14 Mar (Varmala, Pheras & Reception)"', '=SUM(RSVPs!G2:G)'],
+    ['="Coming on Day 1 · 13 Mar (Haldi & Sangeet)"', '=COUNTIF(RSVPs!E2:E,"Yes")'],
+    ['="Coming on Day 2 · 14 Mar (Varmala, Pheras & Reception)"', '=COUNTIF(RSVPs!F2:F,"Yes")'],
     ['="Families replied"', '=COUNTA(RSVPs!C2:C)'],
     ['="Declined"', '=COUNTIF(RSVPs!D2:D,"No")']
   ]);
